@@ -1,22 +1,33 @@
-// import necessary react testing library helpers here
-// import the Counter component here
+import { render, screen, fireEvent } from '@testing-library/react';
+import Counter from '../components/Counter';
 
-beforeEach(() => {
-  // Render the Counter component here
-})
+describe('Counter component', () => {
+  beforeEach(() => {
+    render(<Counter />);
+  });
 
-test('renders counter message', () => {
-  // Complete the unit test below based on the objective in the line above
-});
+  test('should display the counter message', () => {
+    const counterMessage = screen.getByText(/counter/i);
+    expect(counterMessage).toBeInTheDocument();
+  });
 
-test('should render initial count with value of 0', () => {
-  // Complete the unit test below based on the objective in the line above
-});
+  test('should display initial count with value of 0', () => {
+    const countValue = screen.getByText('0');
+    expect(countValue).toBeInTheDocument();
+  });
 
-test('clicking + increments the count', () => {
-  // Complete the unit test below based on the objective in the line above
-});
+  test('should increment the count when the + button is clicked', () => {
+    const incrementButton = screen.getByText('+');
+    fireEvent.click(incrementButton);
+    const countValue = screen.getByText('1');
+    expect(countValue).toBeInTheDocument();
+  });
 
-test('clicking - decrements the count', () => {
-  // Complete the unit test below based on the objective in the line above
+  test('should decrement the count when the - button is clicked', () => {
+    const decrementButton = screen.getByText('-');
+    fireEvent.click(decrementButton);
+
+    const countValue = screen.getByText('-1');
+    expect(countValue).toBeInTheDocument();
+  });
 });
